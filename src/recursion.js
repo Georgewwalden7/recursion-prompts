@@ -509,6 +509,9 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  if(str === '') {
+    return '';
+  }
   var numStrings = ['zero', 'one','two','three','four','five','six','seven','eight','nine'];
   var arr = str.split(' ');
 };
@@ -525,6 +528,27 @@ var tagCount = function(tag, node) {
 // binarySearch(array, 5) // 5
 // https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search
 var binarySearch = function(array, target, min, max) {
+  if(min === undefined) {
+    min = 0;
+  }
+  if(max === undefined) {
+    max = array.length;
+  }
+  if (min > max) {
+    return null;
+  }
+
+  var midpoint = Math.floor( min + ( (max - min) / 2) );
+  if (array[midpoint] === target) {
+    return midpoint;
+  }
+
+  if (target > array[midpoint]) {
+    return binarySearch(array, target, midpoint+1, max)
+  } else {
+    return binarySearch(array, target, min, midpoint-1);
+  }
+  return null;
 };
 
 // 39. Write a merge sort function.
